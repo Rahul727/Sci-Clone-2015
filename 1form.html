@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+            <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
+
+</head>
+<body>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+           $('#event_type').on('change',function (){
+               $('#event_div').empty();
+               if($('#event_type').val()=="technical")
+               {
+                   var options='<input type="radio" name="event" value="e_bug" required/>E-Bug';
+                   options+='<input type="radio" name="event" value="c_poid" />C-PHOID';
+                   options+='<input type="radio" name="event" value="torsion_catapult" />Torsion Catapult';
+                   options+='<input type="radio" name="event" value="Adbhut" />Adbhut';
+				   options+='<input type="radio" name="event" value="circuit_mania" />Circuit Mania';
+                   options+='<input type="radio" name="event" value="algo_hunt" />Algo Hunt';
+				   options+='<input type="radio" name="event" value="mazoprime" />Mazoprime';
+                   options+='<input type="radio" name="event" value="smart_town_design" />Smart Town Design';
+                   options+='<input type="radio" name="event" value="water_bot" />Water Bot';       
+                   $('#event_div').html(options);
+                   
+               }
+               else if($('#event_type').val()=="fun_zone"){
+                   var options='<input type="radio" name="event" value="clay_modeling" required/>Clay Modeling';
+                   options+='<input type="radio" name="event" value="brain_games" />Brain Games';
+                   options+='<input type="radio" name="event" value="1_minutes_games" />1-Minutes Games';
+                   options+='<input type="radio" name="event" value="open_it" />Open It';
+                   options+='<input type="radio" name="event" value="lan_gaming" />LAN Gaming';
+				   options+='<input type="radio" name="event" value="movie_show" />Movie Show';
+				   options+='<input type="radio" name="event" value="rangoli" />Rangoli';
+                   $('#event_div').html(options);
+                   
+               }
+               else if($('#event_type').val()=="workshop"){
+                   var options='<input type="radio" name="event" value="pragma_automobile_workshop" required/>Pragma Automobile Workshop';
+                   $('#event_div').html(options);
+                }
+               
+           }); 
+           
+           		$("#form1").validate();
+
+$('#form1').on('submit', function(event){
+         event.preventDefault();
+var event=$("input:radio[name=event]").val();
+     $.ajax({
+         url: "register.php",
+         type: "POST",
+         data: "firstname="+$("#firstname").val()+"&lastname="+$("#lastname").val()+"&email="+$("#email").val()+"&mobile="+$("#mobile").val()+"&clg_name="+$("#clg_name").val()+"&g-recaptcha-response="+$(".g-recaptcha-response").val()+"&event_type="+$("#event_type").val()+"&event="+event,
+         success: function(result){
+        $('#response').html(result);
+    }
+});        
+});
+
+        });
+        
+    </script>
+    <div id="response">
+        
+    </div>
+    <form id="form1" action="" method="post">
+        <input type="text" placeholder="First Name" name="firstname" id="firstname" required/> <br>
+        <input type="text" placeholder="Last Name" name="lastname" id="lastname" required/>
+        <input type="email" placeholder="Email ID" name="email" id="email" required/><br>
+        <input type="text" placeholder="Mobile" name="mobile" id="mobile" required/><br>
+        <input type="text" placeholder="College Name" name="clg_name" id="clg_name" required/><br>
+
+        <select name="event_type" id="event_type" required>
+            <option value="">Select Event Type</option>
+            <option value="technical">Technical Events</option>
+            <option value="fun_zone">Fun Zone</option>
+            <option value="workshop">Workshop and Seminars</option>
+        </select>
+<br>        
+        <div id="event_div">            
+        </div>
+ <br>               
+        <div class="g-recaptcha" data-sitekey="6Lfdtv8SAAAAAELPo7ZVpmQ8poObGcdujKwqFAm3"></div>
+        <input type="submit" value="Register" id="submit" />
+    </form>
+		
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-47511135-2', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+	
+</body>
+</html>
